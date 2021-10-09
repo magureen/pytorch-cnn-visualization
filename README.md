@@ -68,10 +68,58 @@ plt.imshow(neg)
 
 guided Grad-CAM
 ```
-plt.imshow(out * np.expand_dims(gbp, axis=2))
+plt.imshow(cam * gbp)
 ```
-![index](https://user-images.githubusercontent.com/58849368/136646271-bb0049c1-3279-4504-9741-8c62f20e068e.png)
+![index](https://user-images.githubusercontent.com/58849368/136659589-64fa424a-a185-460f-bfc6-fbbf7c404f2c.png)
 
+
+# Use other models and specify classes
+```
+img = Image.open('dog_and_cat.jpg').resize((224,224))
+input_img = transform(img).to(device)
+plt.imshow(img)
+```
+![index](https://user-images.githubusercontent.com/58849368/136659608-096d7d3a-0cb8-44ac-b99f-306b127bc561.png)
+
+Use timm model
+```
+model_name = 'efficientnet_b3'
+model = timm.create_model(model_name, pretrained=True).to(device).eval()
+vis_cam = GradCam(model)
+model = timm.create_model(model_name, pretrained=True).to(device).eval()
+vis_gbp = SaliencyMap(model, guided=True)
+```
+
+Class specification
+```
+target_class = 260 # dog
+cam, c = vis_cam(input_img, target_class=target_class)
+grad, c = vis_gbp(input_img, target_class=target_class)
+
+out = image_with_colormap(img, cam)
+plt.imshow(out)
+plt.show()
+
+gbp = convert_to_grayscale(grad)
+plt.imshow(cam*gbp)
+plt.show()
+```
+![index](https://user-images.githubusercontent.com/58849368/136659838-b70ffc47-c0ac-41bd-aa69-751ef199d48a.png) ![index](https://user-images.githubusercontent.com/58849368/136659846-519cacaf-42d4-4dbf-b58d-51c40775ad04.png)
+
+```
+target_class = 281 # cat
+cam, c = vis_cam(input_img, target_class=target_class)
+grad, c = vis_gbp(input_img, target_class=target_class)
+
+out = image_with_colormap(img, cam)
+plt.imshow(out)
+plt.show()
+
+gbp = convert_to_grayscale(grad)
+plt.imshow(cam*gbp)
+plt.show()
+```
+![index](https://user-images.githubusercontent.com/58849368/136659945-a553870e-e74d-412c-971b-9d8cc9f19d94.png) ![index](https://user-images.githubusercontent.com/58849368/136659966-36297a0f-6703-4ed0-a957-8073ced4e087.png)
 
 # References
 - https://github.com/utkuozbulak/pytorch-cnn-visualizations
