@@ -74,5 +74,5 @@ plt.imshow(out * np.expand_dims(gbp, axis=2))
 
 
 # References
-https://github.com/utkuozbulak/pytorch-cnn-visualizations
-https://github.com/FrancescoSaverioZuppichini/A-journey-into-Convolutional-Neural-Network-visualization-
+- https://github.com/utkuozbulak/pytorch-cnn-visualizations
+- https://github.com/FrancescoSaverioZuppichini/A-journey-into-Convolutional-Neural-Network-visualization-
