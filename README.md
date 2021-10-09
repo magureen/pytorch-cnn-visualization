@@ -3,13 +3,12 @@ Easy-to-use visualization library for Grad-CAM, Guided Backpropagation, Guided G
 
 
 # Usage
-Import library and utility functions
+download
 ```
-from cnn_visualize import GradCam, SaliencyMap
-from cnn_visualize import image_with_colormap, convert_to_grayscale, get_positive_negative_saliency
+wget https://raw.githubusercontent.com/magureen/pytorch-cnn-visualization/main/cnn_visualize.py
 ```
 
-import library
+import library and utility functions
 ```
 from cnn_visualize import GradCam, SaliencyMap
 from cnn_visualize import image_with_colormap, convert_to_grayscale, get_positive_negative_saliency
@@ -46,7 +45,7 @@ plt.imshow(out)
 
 guided back propagation
 ```
-model = timm.create_model(model_name, pretrained=True).to(device).eval()
+model = torchvision.models.vgg16(pretrained=True)
 vis = SaliencyMap(model, guided=True)
 gbp = convert_to_grayscale(grad)
 plt.imshow(gbp)
