@@ -47,6 +47,7 @@ guided back propagation
 ```
 model = torchvision.models.vgg16(pretrained=True)
 vis = SaliencyMap(model, guided=True)
+grad, c = vis(input_img)
 gbp = convert_to_grayscale(grad)
 plt.imshow(gbp)
 ```
